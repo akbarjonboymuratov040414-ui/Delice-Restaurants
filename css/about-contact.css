@@ -1,0 +1,874 @@
+/**
+ * ==============================================================================
+ *  Delice Restaurant — About Us & Contact Us Stylesheet
+ *  File: css/about-contact.css
+ *  Pure CSS3. Zero JavaScript dependencies.
+ *  Fully responsive: Desktop, Laptop, Tablet, Mobile.
+ * ==============================================================================
+ */
+
+/* --- CSS Variables & Theme Tokens --- */
+:root {
+  --delice-gold: #f2b51b;
+  --delice-gold-hover: #ffc83e;
+  --delice-gold-dark: #c49a45;
+  --delice-gold-glow: rgba(242, 181, 27, 0.25);
+  --delice-bg-black: #080808;
+  --delice-bg-dark: #101010;
+  --delice-card-bg: #151515;
+  --delice-card-inner: #1c1c1c;
+  --delice-border: #2c251a;
+  --delice-border-light: #3d3424;
+  --delice-text-white: #ffffff;
+  --delice-text-cream: #f4f1eb;
+  --delice-text-muted: #a09a8e;
+  --delice-font-sans: 'Arial', sans-serif;
+  --delice-font-script: "Brush Script MT", cursive;
+}
+
+/* --- Base Resets & Global Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body.delice-page {
+  background-color: var(--delice-bg-black);
+  color: var(--delice-text-cream);
+  font-family: var(--delice-font-sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* --- Top Fixed Navbar (Delice Standard) --- */
+.delice-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(217, 164, 65, 0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.delice-nav-container {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delice-logo {
+  font-family: var(--delice-font-script);
+  font-size: 42px;
+  color: var(--delice-text-white);
+  text-decoration: none;
+  font-style: italic;
+  transition: color 0.25s ease;
+}
+
+.delice-logo:hover {
+  color: var(--delice-gold);
+}
+
+.delice-nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 28px;
+}
+
+.delice-nav-links a {
+  text-decoration: none;
+  color: var(--delice-text-cream);
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  position: relative;
+  padding: 6px 0;
+}
+
+.delice-nav-links a:hover,
+.delice-nav-links a.active {
+  color: var(--delice-gold);
+}
+
+.delice-nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--delice-gold);
+  transition: width 0.3s ease;
+}
+
+.delice-nav-links a:hover::after,
+.delice-nav-links a.active::after {
+  width: 100%;
+}
+
+.delice-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.delice-btn-order {
+  padding: 9px 20px;
+  background-color: var(--delice-gold);
+  color: #17120a;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+  display: inline-block;
+}
+
+.delice-btn-order:hover {
+  background-color: var(--delice-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--delice-gold-glow);
+}
+
+.delice-btn-login {
+  color: var(--delice-text-white);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.delice-btn-login:hover {
+  color: var(--delice-gold);
+}
+
+/* --- Hero Sub-Header --- */
+.delice-hero-banner {
+  padding: 150px 24px 70px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 20%, rgba(242, 181, 27, 0.08) 0%, transparent 60%),
+              linear-gradient(180deg, #0d0d0d 0%, var(--delice-bg-black) 100%);
+  border-bottom: 1px solid var(--delice-border);
+}
+
+.delice-hero-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: var(--delice-gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.delice-hero-title {
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  color: var(--delice-text-white);
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.delice-hero-title span {
+  color: var(--delice-gold);
+  font-family: var(--delice-font-script);
+  font-size: 1.15em;
+  font-weight: 400;
+}
+
+.delice-hero-desc {
+  max-width: 680px;
+  margin: 0 auto 30px;
+  font-size: 16px;
+  color: var(--delice-text-muted);
+  line-height: 1.7;
+}
+
+.delice-quick-links {
+  display: inline-flex;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 6px 10px;
+  border-radius: 30px;
+  border: 1px solid var(--delice-border);
+}
+
+.delice-pill-btn {
+  padding: 8px 22px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  color: var(--delice-text-cream);
+}
+
+.delice-pill-btn:hover,
+.delice-pill-btn.active {
+  background-color: var(--delice-gold);
+  color: #111;
+  box-shadow: 0 2px 10px var(--delice-gold-glow);
+}
+
+/* --- Section Container & Typography --- */
+.delice-section {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 90px 24px;
+}
+
+.delice-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 60px;
+}
+
+.delice-eyebrow {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--delice-gold);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.delice-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  color: var(--delice-text-white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.delice-subtitle {
+  font-size: 16px;
+  color: var(--delice-text-muted);
+  line-height: 1.7;
+}
+
+/* --- About Us Story Section --- */
+.delice-story-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.delice-story-text h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+
+.delice-story-text p {
+  color: var(--delice-text-muted);
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 18px;
+}
+
+.delice-story-text p strong {
+  color: var(--delice-text-white);
+}
+
+.delice-quote-box {
+  background: linear-gradient(135deg, rgba(242, 181, 27, 0.08) 0%, rgba(20, 20, 20, 0.4) 100%);
+  border-left: 4px solid var(--delice-gold);
+  padding: 18px 22px;
+  border-radius: 0 10px 10px 0;
+  margin-top: 24px;
+  font-style: italic;
+  color: var(--delice-text-cream);
+  font-size: 14px;
+}
+
+/* Story Visual Showcase */
+.delice-story-visual {
+  position: relative;
+}
+
+.delice-img-frame {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--delice-border-light);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+}
+
+.delice-img-frame img {
+  width: 100%;
+  height: 440px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.delice-img-frame:hover img {
+  transform: scale(1.04);
+}
+
+.delice-img-badge {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(14, 14, 14, 0.92);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--delice-border-light);
+  border-radius: 12px;
+  padding: 16px 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.delice-img-badge-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--delice-gold);
+  line-height: 1;
+}
+
+.delice-img-badge-text {
+  font-size: 12px;
+  color: var(--delice-text-cream);
+  line-height: 1.4;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* --- Core Values Grid --- */
+.delice-values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-bottom: 80px;
+}
+
+.delice-val-card {
+  background: var(--delice-card-bg);
+  border: 1px solid var(--delice-border);
+  border-radius: 14px;
+  padding: 32px 26px;
+  transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.delice-val-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--delice-gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.delice-val-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--delice-gold-dark);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.delice-val-card:hover::before {
+  opacity: 1;
+}
+
+.delice-val-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1.5px solid var(--delice-gold-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--delice-gold);
+  font-size: 24px;
+  margin-bottom: 20px;
+  background: rgba(242, 181, 27, 0.05);
+}
+
+.delice-val-card h4 {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+  margin-bottom: 12px;
+}
+
+.delice-val-card p {
+  color: var(--delice-text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* --- Mission & Vision Two-Column Banner --- */
+.delice-mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.delice-mv-card {
+  background: linear-gradient(145deg, #181818 0%, #121212 100%);
+  border: 1px solid var(--delice-border);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+}
+
+.delice-mv-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--delice-gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.delice-mv-card h3 {
+  font-size: 22px;
+  color: var(--delice-text-white);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.delice-mv-card p {
+  font-size: 14px;
+  color: var(--delice-text-muted);
+  line-height: 1.75;
+}
+
+/* ==============================================================================
+   CONTACT US SECTION
+   ============================================================================== */
+.delice-contact-wrapper {
+  background: linear-gradient(180deg, var(--delice-bg-black) 0%, #0c0c0c 100%);
+  border-top: 1px solid var(--delice-border);
+}
+
+.delice-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+}
+
+/* Contact Info Panel */
+.delice-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.delice-info-item {
+  background: var(--delice-card-bg);
+  border: 1px solid var(--delice-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: all 0.3s ease;
+}
+
+.delice-info-item:hover {
+  border-color: var(--delice-gold-dark);
+  transform: translateX(4px);
+}
+
+.delice-info-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(242, 181, 27, 0.1);
+  border: 1px solid rgba(242, 181, 27, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--delice-gold);
+  flex-shrink: 0;
+}
+
+.delice-info-content h5 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+  margin-bottom: 4px;
+}
+
+.delice-info-content p,
+.delice-info-content a {
+  font-size: 13.5px;
+  color: var(--delice-text-muted);
+  line-height: 1.6;
+  text-decoration: none;
+}
+
+.delice-info-content a:hover {
+  color: var(--delice-gold);
+}
+
+.delice-placeholder-tag {
+  display: inline-block;
+  background: rgba(242, 181, 27, 0.12);
+  color: var(--delice-gold);
+  border: 1px solid rgba(242, 181, 27, 0.3);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Social Media Pill Bar */
+.delice-social-box {
+  background: var(--delice-card-bg);
+  border: 1px solid var(--delice-border);
+  border-radius: 12px;
+  padding: 20px 22px;
+}
+
+.delice-social-box h5 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+  margin-bottom: 14px;
+}
+
+.delice-social-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.delice-social-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #1f1f1f;
+  color: var(--delice-text-cream);
+  text-decoration: none;
+  font-size: 12.5px;
+  font-weight: 600;
+  border: 1px solid #333;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.delice-social-btn:hover {
+  background: var(--delice-gold);
+  color: #111;
+  border-color: var(--delice-gold);
+  transform: translateY(-2px);
+}
+
+/* Map Area Placeholder Card */
+.delice-map-card {
+  background: var(--delice-card-bg);
+  border: 1px solid var(--delice-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.delice-map-placeholder {
+  height: 180px;
+  background: linear-gradient(135deg, #181818 0%, #101010 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--delice-border);
+}
+
+.delice-map-pin {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--delice-gold);
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 20px var(--delice-gold-glow);
+  animation: delice-pulse 2.2s infinite ease-in-out;
+}
+
+@keyframes delice-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); box-shadow: 0 0 28px rgba(242, 181, 27, 0.5); }
+}
+
+.delice-map-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+}
+
+.delice-map-sub {
+  font-size: 11px;
+  color: var(--delice-text-muted);
+  margin-top: 2px;
+}
+
+.delice-map-footer {
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--delice-text-muted);
+}
+
+/* Contact Form Card */
+.delice-form-card {
+  background: var(--delice-card-bg);
+  border: 1px solid var(--delice-border);
+  border-radius: 16px;
+  padding: 38px 34px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6);
+}
+
+.delice-form-card h4 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--delice-text-white);
+  margin-bottom: 8px;
+}
+
+.delice-form-card p.form-desc {
+  font-size: 13.5px;
+  color: var(--delice-text-muted);
+  margin-bottom: 26px;
+  line-height: 1.6;
+}
+
+.delice-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.delice-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.delice-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.delice-form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--delice-text-cream);
+}
+
+.delice-form-group label span.req {
+  color: #f87171;
+}
+
+.delice-input,
+.delice-select,
+.delice-textarea {
+  background: #1b1b1b;
+  border: 1px solid #363636;
+  border-radius: 10px;
+  color: var(--delice-text-white);
+  padding: 12px 16px;
+  font-size: 14px;
+  font-family: var(--delice-font-sans);
+  outline: none;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.delice-input:focus,
+.delice-select:focus,
+.delice-textarea:focus {
+  border-color: var(--delice-gold);
+  background: #202020;
+  box-shadow: 0 0 0 3px rgba(242, 181, 27, 0.18);
+}
+
+.delice-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.delice-form-submit-btn {
+  background: var(--delice-gold);
+  color: #17120a;
+  border: none;
+  border-radius: 10px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--delice-font-sans);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.delice-form-submit-btn:hover {
+  background: var(--delice-gold-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--delice-gold-glow);
+}
+
+.delice-form-notice {
+  font-size: 11.5px;
+  color: #888;
+  line-height: 1.5;
+  margin-top: 10px;
+  border-top: 1px solid var(--delice-border);
+  padding-top: 14px;
+}
+
+/* --- Footer --- */
+.delice-footer {
+  background: #050505;
+  border-top: 1px solid var(--delice-border);
+  padding: 50px 24px 30px;
+  text-align: center;
+}
+
+.delice-footer-content {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.delice-footer-logo {
+  font-family: var(--delice-font-script);
+  font-size: 40px;
+  color: var(--delice-text-white);
+  text-decoration: none;
+}
+
+.delice-footer-nav {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.delice-footer-nav a {
+  text-decoration: none;
+  color: var(--delice-text-muted);
+  font-size: 13.5px;
+  transition: color 0.2s ease;
+}
+
+.delice-footer-nav a:hover {
+  color: var(--delice-gold);
+}
+
+.delice-footer-copy {
+  font-size: 12.5px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* ==============================================================================
+   RESPONSIVE DESIGN (Media Queries)
+   ============================================================================== */
+
+/* Tablets & Laptops (max-width: 992px) */
+@media (max-width: 992px) {
+  .delice-story-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .delice-contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .delice-mv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Devices (max-width: 768px) */
+@media (max-width: 768px) {
+  .delice-nav-links {
+    display: none; /* Preserves mobile standard layout */
+  }
+  .delice-hero-banner {
+    padding: 120px 18px 50px;
+  }
+  .delice-section {
+    padding: 60px 18px;
+  }
+  .delice-form-row {
+    grid-template-columns: 1fr;
+  }
+  .delice-form-card {
+    padding: 26px 20px;
+  }
+  .delice-img-frame img {
+    height: 300px;
+  }
+  .delice-values-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Small Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .delice-logo {
+    font-size: 34px;
+  }
+  .delice-btn-order {
+    padding: 7px 14px;
+    font-size: 12.5px;
+  }
+  .delice-quick-links {
+    width: 100%;
+    justify-content: center;
+  }
+  .delice-pill-btn {
+    padding: 6px 14px;
+    font-size: 12px;
+  }
+}
+

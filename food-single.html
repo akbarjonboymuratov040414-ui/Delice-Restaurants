@@ -1,1 +1,61 @@
 
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080808">
+    <title>Taom | Delice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/food-single.css">
+</head>
+<body>
+    <nav class="navbar navbar-bg fixed w-full z-20 top-0 left-0 border-b border-white/10">
+        <div class="max-w-[1290px] w-full h-[80px] flex items-center justify-between mx-auto px-4">
+            <a href="index.html" class="food-brand">Delice</a>
+            <div class="food-nav-links">
+                <a href="index.html">Bosh sahifa</a>
+                <a href="menu.html">Menyu</a>
+                <a href="about-contact.html#about">Biz haqimizda</a>
+            </div>
+            <div class="auth"><a href="order.html">Buyurtma</a></div>
+        </div>
+    </nav>
+
+    <main class="food-detail-page">
+        <div class="food-detail-wrap">
+            <a class="food-back-link" href="menu.html">&larr; Menyuga qaytish</a>
+            <p class="food-detail-status" id="food-status" role="status">Taom ma'lumotlari yuklanmoqda...</p>
+            <article class="food-detail" id="food-detail" hidden>
+                <div class="food-detail__photo-wrap">
+                    <img class="food-detail__photo" id="food-image" alt="">
+                    <span class="food-detail__photo-caption">DELICE KITCHEN</span>
+                </div>
+                <div class="food-detail__content">
+                    <p class="food-detail__eyebrow" id="food-category">CHEF'S SELECTION</p>
+                    <h1 id="food-name"></h1>
+                    <p class="food-detail__price" id="food-price"></p>
+                    <p class="food-detail__description" id="food-description"></p>
+                    <div class="food-detail__facts" id="food-facts"></div>
+                    <div class="food-detail__actions">
+                        <button class="food-order-button" id="food-add" type="button">Savatga qo'shish</button>
+                        <button class="food-taste-button" id="food-taste" type="button" title="3D tayyorlanishini ko'rish">3D tayyorlanishini ko'rish</button>
+                    </div>
+                    <section class="food-info-section" id="ingredients-section" hidden>
+                        <h2>Masalliqlar</h2>
+                        <ul id="food-ingredients"></ul>
+                    </section>
+                    <section class="food-info-section" id="instructions-section" hidden>
+                        <h2>Tayyorlanishi</h2>
+                        <ol id="food-instructions"></ol>
+                    </section>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script src="js/taste3d.js"></script>
+    <script src="food-single.js"></script>
+</body>
+</html>

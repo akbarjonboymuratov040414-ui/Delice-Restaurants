@@ -1,66 +1,83 @@
 document.addEventListener("DOMContentLoaded", async function () {
     const row = document.querySelector(".row");
     const products = JSON.parse(localStorage.getItem("Products") || "[]");
+    let nextId = products.reduce(
+        (maxId, product) => Math.max(maxId, Number(product.id) || 0),
+        0
+    ) + 1;
 
-    function renderMeal(name, image, price) {
-        const div = document.createElement("div");
-        div.style.cssText = "width:33.333%; padding:12px; box-sizing:border-box;";
-        div.innerHTML = `
-            <section style="height:100%; background:#151515; color:white; border:1px solid #3b3325; border-radius:14px; overflow:hidden; box-shadow:0 5px 20px #0005; font-family:Arial,sans-serif;">
-                <img 
-    src="${image}" 
-    alt="${name}" 
-    loading="lazy"
-    decoding="async"
-    style="width:100%; height:220px; object-fit:cover; display:block;"
->
-                <div class="card-body" style="padding:15px;">
-                    <h4 class="card-title" style="font-size:18px; margin-bottom:10px;">${name}</h4>
-                    <p class="card-text" style="font-size:16px; color:#e8b75a; font-weight:bold;">${price} </p>
-                    
+    function renderMeal(meal) {
+        const column = document.createElement("div");
+        const card = document.createElement("section");
+        const link = document.createElement("a");
+        const imageFrame = document.createElement("div");
+        const image = document.createElement("img");
+        const hoverLabel = document.createElement("span");
+        const details = document.createElement("div");
+        const title = document.createElement("h2");
+        const price = document.createElement("p");
+        const actions = document.createElement("div");
+        const cartButton = document.createElement("button");
+        const itemId = meal.id || meal.dummyJsonId || meal.fio;
 
+        column.className = "col-12 col-sm-6 col-lg-4 menu-column";
+        card.className = "menu-card";
+        link.className = "menu-card__link";
+        link.href = `food-single.html?id=${encodeURIComponent(itemId)}`;
+        link.setAttribute("aria-label", `${meal.fio}, batafsil ma'lumot`);
+        imageFrame.className = "menu-card__image-frame";
+        image.className = "menu-card__image";
+        image.src = meal.rasm || "";
+        image.alt = meal.fio || "Delice taomi";
+        image.loading = "lazy";
+        image.decoding = "async";
+        hoverLabel.className = "menu-card__hover-label";
+        hoverLabel.textContent = "3D tayyorlanishini ko'rish";
+        details.className = "menu-card__details";
+        title.className = "menu-card__title";
+        title.textContent = meal.fio || "Nomsiz taom";
+        price.className = "menu-card__price";
+        price.textContent = meal.kursi || "Narxi so'rov bo'yicha";
+        actions.className = "card-body menu-card__actions";
+        cartButton.className = "menu-card__cart";
+        cartButton.type = "button";
+        cartButton.textContent = "Savatga qo'shish";
+        cartButton.setAttribute("onclick", "addToCart(this)");
+        cartButton.dataset.name = meal.fio || "Nomsiz taom";
+        cartButton.dataset.image = meal.rasm || "";
+        cartButton.dataset.price = meal.kursi || "";
 
+        imageFrame.append(image, hoverLabel);
+        details.append(title, price);
+        link.append(imageFrame, details);
+        actions.append(cartButton);
+        card.append(link, actions);
+        column.append(card);
 
-                    <button style="background-color: rgba(248, 244, 0, 0.71); color: black; border-radius: 10px; width: 109px;"  onclick="addToCart(this)"
-    data-name="${name}"
-    data-image="${image}"
-    data-price="${price}">
-    Add to Card
-</button>
-                </div>
-            </section>
-        `;
-        
-const img = div.querySelector("img");
+        let hoverTimer;
+        imageFrame.addEventListener("pointerenter", event => {
+            if (event.pointerType !== "mouse") return;
+            hoverTimer = window.setTimeout(() => {
+                if (typeof window.openTaste3D === "function") {
+                    window.openTaste3D(meal.fio, meal.rasm, meal.kursi);
+                }
+            }, 650);
+        });
+        imageFrame.addEventListener("pointerleave", () => window.clearTimeout(hoverTimer));
+        link.addEventListener("pointerdown", () => window.clearTimeout(hoverTimer));
 
-img.loading = "lazy";
-img.decoding = "async";
+        image.addEventListener("error", () => {
+            image.classList.add("menu-card__image--missing");
+        }, { once: true });
 
-let retryCount = 0;
-const originalImage = image;
-
-img.onerror = function () {
-    if (retryCount < 3) {
-        retryCount++;
-
-        setTimeout(() => {
-            img.src = originalImage +
-                (originalImage.includes("?") ? "&" : "?") +
-                "retry=" + retryCount;
-        }, 1000 * retryCount);
-    } else {
-        console.error("Rasm yuklanmadi:", name);
-    }
-};
-
-        row.append(div);
+        row.append(column);
     }
 
     const adminMeals = products.filter(product =>
         !product.dummyJsonId &&
         (product.type === "food" || (!product.yunalish && product.fio && product.rasm))
     );
-    adminMeals.forEach(product => renderMeal(product.fio, product.rasm, product.kursi));
+    adminMeals.forEach(renderMeal);
 
  
     try {
@@ -76,30 +93,35 @@ img.onerror = function () {
             products.map(product => product.dummyJsonId)
         );
 
-        let nextId = products.reduce(
-            (maxId, product) =>
-                Math.max(maxId, Number(product.id) || 0),
-            0
-        ) + 1;
-
         response.recipes.forEach(meal => {
+            let product = products.find(saved => saved.dummyJsonId === meal.id);
             if (!savedIds.has(meal.id)) {
-                products.push({
+                product = {
                     id: nextId++,
                     dummyJsonId: meal.id,
                     type: "food",
                     fio: meal.name,
                     kursi: `${meal.caloriesPerServing} $`,
                     rasm: meal.image,
-                    yunalish: "DummyJSON recipe"
-                });
+                    yunalish: "DummyJSON recipe",
+                    description: meal.instructions?.join(" ") || "",
+                    ingredients: meal.ingredients || [],
+                    instructions: meal.instructions || [],
+                    prepTimeMinutes: meal.prepTimeMinutes,
+                    cookTimeMinutes: meal.cookTimeMinutes,
+                    servings: meal.servings,
+                    difficulty: meal.difficulty,
+                    cuisine: meal.cuisine,
+                    rating: meal.rating
+                };
+                products.push(product);
+            } else if (product) {
+                product.description = product.description || meal.instructions?.join(" ") || "";
+                product.ingredients = product.ingredients || meal.ingredients || [];
+                product.instructions = product.instructions || meal.instructions || [];
             }
 
-            renderMeal(
-                meal.name,
-                meal.image,
-                `${meal.caloriesPerServing} $`
-            );
+            renderMeal(product);
         });
 
         localStorage.setItem("Products", JSON.stringify(products));
